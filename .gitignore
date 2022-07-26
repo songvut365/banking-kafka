@@ -1,0 +1,5 @@
+go-kafka.code-workspace
+
+/server/kafka_2.13-3.2.0
+/server/kafka
+/server/zookeeper
