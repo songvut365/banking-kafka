@@ -1,11 +1,40 @@
 package main
 
 import (
+	"consumer/repositories"
+	"consumer/services"
+	"context"
+	"events"
+	"fmt"
 	"strings"
 
 	"github.com/Shopify/sarama"
 	"github.com/spf13/viper"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
+
+func initDatabase() *gorm.DB {
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v",
+		viper.GetString("db.username"),
+		viper.GetInt("db.password"),
+		viper.GetString("db.host"),
+		viper.GetInt("db.port"),
+		viper.GetString("db.database"),
+	)
+
+	dial := mysql.Open(dsn)
+
+	db, err := gorm.Open(dial, &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	return db
+}
 
 func init() {
 	viper.SetConfigName("config")
@@ -26,4 +55,14 @@ func main() {
 		panic(err)
 	}
 	defer consumer.Close()
+
+	db := initDatabase()
+	accountRepository := repositories.NewAccountRepository(db)
+	accountEventHandler := services.NewAccountEventHandler(accountRepository)
+	accountConsumerHandler := services.NewConsumerHandler(accountEventHandler)
+
+	fmt.Println("Account consumer started . . .")
+	for {
+		consumer.Consume(context.Background(), events.Topics, accountConsumerHandler)
+	}
 }
