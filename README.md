@@ -1,5 +1,9 @@
 # Banking Kafka
 
+## Architecture
+
+![architecture](./doc/architecture.png)
+
 ## How to run
 
 1. Install kafka (macOS)
@@ -80,3 +84,6 @@ $ kafka-console-consumer --bootstrap-server=localhost:9092
 $ kafka-console-producer --bootstrap-server=localhost:9092 --topic=songvut
 > hello world
 ```
+
+## Reference
+- [Go Programming - Kafka](https://www.youtube.com/watch?v=RjtIdUOpH04&list=PLyZTXfAT27ib7T9Eg3qhvDE5rgvjQk4OL&index=2)
