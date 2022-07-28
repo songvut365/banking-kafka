@@ -22,7 +22,38 @@ $ kafka-topics --bootstrap-server=localhost:9092 --list
 $ kafka-topics --bootstrap-server=localhost:9092 --topic=songvut --create
 ```
 
-## Producer and Consumer
+## Test Consumer with kafka-console-producer
+
+- Subscribe all event topic
+```
+$ kafka-console-consumer --bootstrap-server=localhost:9092 --include="CloseAccountEvent|DepositFundEvent|OpenAccountEvent|WithdrawFundEvent" --group=log
+```
+
+- Send message to topic "OpenAccountEvent" for create bank account
+```
+$ kafka-console-producer --bootstrap-server=localhost:9092 --topic=OpenAccountEvent
+> {"ID": "1", "AccountHolder": "Not", "AccountType": 1, "OpeningBalance": 1000}
+```
+
+- Send message to topic "DepositFundEvent" for deposit
+```
+$ kafka-console-producer --bootstrap-server=localhost:9092 --topic=DepositFundEvent
+> {"ID": "1", "Amount": 500}
+```
+
+-  Send message to topic "WithdrawFundEvent" for withdraw
+```
+$ kafka-console-producer --bootstrap-server=localhost:9092 --topic=WithdrawFundEvent
+> {"ID": "1", "Amount": 700}
+```
+
+- Send message to topic "CloseAccountEvent" for close bank account
+```
+$ kafka-console-producer --bootstrap-server=localhost:9092 --topic=CloseAccountEvent
+> {"ID": "1"}
+```
+
+## Producer and Consumer commands
 
 ### Consumer
 
