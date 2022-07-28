@@ -20,3 +20,16 @@ services:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
     depends_on:
       - zookeeper
+
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=1234
+      - MARIADB_USER=songvut
+      - MARIADB_PASSWORD=1234
+      - MARIADB_DATABASE=micro
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
