@@ -26,6 +26,20 @@ $ kafka-topics --bootstrap-server=localhost:9092 --list
 $ kafka-topics --bootstrap-server=localhost:9092 --topic=songvut --create
 ```
 
+5. Run Consumer 
+```
+$ cd consumer
+$ go mod download
+$ go run main.go
+```
+
+6. Run Producer
+```
+$ cd producer
+$ go mod download
+$ go run main.go
+```
+
 ## Test Consumer with kafka-console-producer
 
 - Subscribe all event topic
@@ -78,6 +92,13 @@ $ curl -H 'content-type:application/json' \
 $ curl -H 'content-type:application/json' \
     localhost:8000/withdrawFund -d \
     '{"ID": "c2b23518-828f-475a-ab3d-7d5e4118762c", "Amount": 700}' -i
+```
+
+4. Close Account API
+``` curl
+$ curl -H 'content-type:application/json' \
+    localhost:8000/closeAccount -d \
+    '{"ID": "c2b23518-828f-475a-ab3d-7d5e4118762c"}' -i
 ```
 
 ## Producer and Consumer commands
