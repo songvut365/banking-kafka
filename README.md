@@ -57,6 +57,29 @@ $ kafka-console-producer --bootstrap-server=localhost:9092 --topic=CloseAccountE
 > {"ID": "1"}
 ```
 
+## Test API with cURL
+
+1. Open Account API
+``` curl
+$ curl -H 'content-type:application/json' \
+    localhost:8000/openAccount -d \
+    '{"AccountHolder": "not", "AccountType": 1, "OpeningBalance": 1000}' -i
+```
+
+2. Deposit Fund API
+``` curl
+$ curl -H 'content-type:application/json' \
+    localhost:8000/depositFund -d \
+    '{"ID": "c2b23518-828f-475a-ab3d-7d5e4118762c", "Amount": 500}' -i
+```
+
+3. Withdraw Fund API
+``` curl
+$ curl -H 'content-type:application/json' \
+    localhost:8000/withdrawFund -d \
+    '{"ID": "c2b23518-828f-475a-ab3d-7d5e4118762c", "Amount": 700}' -i
+```
+
 ## Producer and Consumer commands
 
 ### Consumer
