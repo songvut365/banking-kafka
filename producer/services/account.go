@@ -20,7 +20,7 @@ type accountService struct {
 	eventProducer EventProducer
 }
 
-func NewAccountService(eventProducer eventProducer) AccountService {
+func NewAccountService(eventProducer EventProducer) AccountService {
 	return accountService{eventProducer}
 }
 
