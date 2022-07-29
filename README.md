@@ -11,7 +11,7 @@
 $ brew install kafka
 ```
 
-2. Run docker compose
+1. Run Zookeeper, Kafka and MariaDB with docker compose
 ```
 $ docker compose up -d
 ```
